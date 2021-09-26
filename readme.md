@@ -9,6 +9,7 @@
 ## 使用方法
 
 下载文件
+https://github.com/intmian/net_detect/releases/download/0.1/release.rar
 
 ### 配置
 
