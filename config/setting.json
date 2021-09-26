@@ -1,7 +1,7 @@
 {
     "proxy" : "127.0.0.1:7890",
     "web_check_num" : 5,
-    "max_parallel" : 3,
+    "max_parallel" : 10,
     "web_china" : "https://www.baidu.com",
     "web_foreign_unban" : "https://en.wikipedia.org",
     "web_foreign_ban" : "https://www.google.com",

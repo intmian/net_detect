@@ -29,7 +29,7 @@ func (s *ProcessBarOneSign) End() {
 	if s.firstPaint {
 		return
 	}
-	print('\b')
+	print("\b")
 	s.status = 0
 	s.firstPaint = true
 }

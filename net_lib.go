@@ -57,6 +57,6 @@ func buildHTTPClient(isProxy bool) *http.Client {
 		}
 	}
 	transport := &http.Transport{Proxy: proxy}
-	client := &http.Client{Transport: transport}
+	client := &http.Client{Transport: transport,Timeout: time.Second * 5}  // 暂定三秒，避免有些注定收不到的请求完全占用了多个线程而卡住了
 	return client
 }

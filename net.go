@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func TestOneWeb(printStr string, netHttPing *NetHttping, url string, useProxy bool, num int) RetData {
 	c := make(chan int, num)
@@ -30,16 +32,14 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	p.Init()
 	p.Run()
 	for i := 0; i < r.num; i++ {
-		time := <-r.retChan
-		if time != -1 {
-			sumTime += time
+		t := <-r.retChan
+		if t != -1 {
+			sumTime += t
 			nolost += 1
 		}
 		sumChan <- 1 // 通知上层，进度+1
 	}
-	go func() {
-
-	}()
+	p.Stop()
 	s := ""
 	s += r.name
 	if r.useProxy {
@@ -50,10 +50,9 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	if nolost == 0 {
 		s += "完全丢失"
 	} else {
-		s += fmt.Sprintf("%3dms\t%d%%\t到达", sumTime/nolost, (nolost * 10000)/(r.num*100))
+		s += fmt.Sprintf("%3dms\t%d%%\t到达", sumTime/nolost, (nolost*10000)/(r.num*100))
 	}
 	s += "\n"
-	p.Stop()
 	print(s)
 }
 
@@ -65,14 +64,14 @@ type AllResData struct {
 }
 
 func (d *AllResData) WaitAndPaint() {
-	for _,v := range d.retDatas {
+	for _, v := range d.retDatas {
 		v.WaitAndPrint(d.sumChan)
 	}
 }
 
 func (d *AllResData) Init(WebCheckNum int, chanNum int) {
 	d.sumChan = make(chan int, chanNum*WebCheckNum)
-	d.retDatas = make([]RetData,0)
+	d.retDatas = make([]RetData, 0)
 	d.ChanNum = chanNum
 	d.WebCheckNum = WebCheckNum
 }
@@ -80,7 +79,7 @@ func (d *AllResData) Init(WebCheckNum int, chanNum int) {
 func NormalDetect(netHttPing *NetHttping) {
 	webCheckNum := gSetting.Data.WebCheckNum
 	allResData := AllResData{}
-	allResData.Init(webCheckNum, 6+len(gSetting.Data.Websites))
+	allResData.Init(webCheckNum, 6+len(gSetting.Data.Websites)*2)
 	allResData.retDatas = append(allResData.retDatas, TestOneWeb("中国", netHttPing, gSetting.Data.WebChina, false, webCheckNum))
 	allResData.retDatas = append(allResData.retDatas, TestOneWeb("中国", netHttPing, gSetting.Data.WebChina, true, webCheckNum))
 	allResData.retDatas = append(allResData.retDatas, TestOneWeb("国外未ban", netHttPing, gSetting.Data.WebForeignUnban, false, webCheckNum))
