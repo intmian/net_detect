@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/schollz/progressbar/v3"
 )
 
 func TestOneWeb(printStr string, netHttPing *NetHttping, url string, useProxy bool, num int) RetData {
@@ -29,14 +28,14 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	// 这个最好还是设计成多线程非阻塞的，因为存在一个并发的问题，可能会提前跑完下一个请求的数据，让用户看起来比较奇怪。。。（这组数据等半天，下组数据瞬间好，）
 	sumTime := 0
 	nolost := 0
-	bar := progressbar.Default(int64(r.num))
+	// bar := progressbar.Default(int64(r.num))
 	for i := 0; i < r.num; i++ {
 		t := <-r.retChan
 		if t != -1 {
 			sumTime += t
 			nolost += 1
 		}
-		bar.Add(1)
+		// bar.Add(1)
 		sumChan <- 1 // 通知上层，进度+1
 	}
 	s := ""
