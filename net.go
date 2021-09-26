@@ -42,6 +42,9 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	p.Stop()
 	s := ""
 	s += r.name
+	for len(s) < 35 {
+		s += " "
+	}
 	if r.useProxy {
 		s += "(代理)\t"
 	} else {
@@ -80,12 +83,12 @@ func NormalDetect(netHttPing *NetHttping) {
 	webCheckNum := gSetting.Data.WebCheckNum
 	allResData := AllResData{}
 	allResData.Init(webCheckNum, 6+len(gSetting.Data.Websites)*2)
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("中国", netHttPing, gSetting.Data.WebChina, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("中国", netHttPing, gSetting.Data.WebChina, true, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("国外未ban", netHttPing, gSetting.Data.WebForeignUnban, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("国外未ban", netHttPing, gSetting.Data.WebForeignUnban, true, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("国外已ban", netHttPing, gSetting.Data.WebForeignBan, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("国外已ban", netHttPing, gSetting.Data.WebForeignBan, true, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, gSetting.Data.WebChina, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, gSetting.Data.WebChina, true, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, gSetting.Data.WebForeignUnban, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, gSetting.Data.WebForeignUnban, true, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, gSetting.Data.WebForeignBan, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, gSetting.Data.WebForeignBan, true, webCheckNum))
 	for _, url := range gSetting.Data.Websites {
 		allResData.retDatas = append(allResData.retDatas, TestOneWeb(url, netHttPing, url, false, webCheckNum))
 		allResData.retDatas = append(allResData.retDatas, TestOneWeb(url, netHttPing, url, true, webCheckNum))
