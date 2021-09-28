@@ -1,7 +1,9 @@
-package main
+package logic
 
 import (
 	"fmt"
+	"net_detect/net"
+	"net_detect/setting"
 	"net_detect/tool"
 	"strconv"
 )
@@ -13,31 +15,31 @@ func changeProxy() {
 	if err != nil {
 		return
 	}
-	gSetting.Data.Proxy = "127.0.0.1:" + strconv.Itoa(port)
-	gSetting.Save()
+	setting.GSetting.Data.Proxy = "127.0.0.1:" + strconv.Itoa(port)
+	setting.GSetting.Save()
 }
 
-func StartMenu(netHttPing *NetHttping) {
-	noSub := make([]*tool.SingleMenu,0)
+func StartMenu(netHttPing *net.NetHttping) {
+	noSub := make([]*tool.SingleMenu, 0)
 	changeProxy := tool.SingleMenu{
-		Name: "更改端口",
-		F:    changeProxy,
+		Name:    "更改端口",
+		F:       changeProxy,
 		SubMenu: noSub,
 	}
 	settingSubMenu := []*tool.SingleMenu{&changeProxy}
 	changeSetting := tool.SingleMenu{
-		Name: "增加配置",
-		F:    nil,
+		Name:    "增加配置",
+		F:       nil,
 		SubMenu: settingSubMenu,
 	}
 	normalDetect := tool.SingleMenu{
-		Name:    "开始检测",
+		Name: "开始检测",
 		F: func() {
-			NormalDetect(netHttPing)
+			net.NormalDetect(netHttPing)
 		},
 		SubMenu: noSub,
 	}
-	rootSubMenu := []*tool.SingleMenu{&changeSetting,&normalDetect}
+	rootSubMenu := []*tool.SingleMenu{&changeSetting, &normalDetect}
 	root := tool.SingleMenu{
 		Name:    "根节点",
 		F:       nil,

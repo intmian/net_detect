@@ -1,7 +1,8 @@
-package main
+package net
 
 import (
 	"fmt"
+	"net_detect/setting"
 )
 
 func TestOneWeb(printStr string, netHttPing *NetHttping, url string, useProxy bool, num int) RetData {
@@ -78,16 +79,16 @@ func (d *AllResData) Init(WebCheckNum int, chanNum int) {
 }
 
 func NormalDetect(netHttPing *NetHttping) {
-	webCheckNum := gSetting.Data.WebCheckNum
+	webCheckNum := setting.GSetting.Data.WebCheckNum
 	allResData := AllResData{}
-	allResData.Init(webCheckNum, 6+len(gSetting.Data.Websites)*2)
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, gSetting.Data.WebChina, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, gSetting.Data.WebChina, true, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, gSetting.Data.WebForeignUnban, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, gSetting.Data.WebForeignUnban, true, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, gSetting.Data.WebForeignBan, false, webCheckNum))
-	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, gSetting.Data.WebForeignBan, true, webCheckNum))
-	for _, url := range gSetting.Data.Websites {
+	allResData.Init(webCheckNum, 6+len(setting.GSetting.Data.Websites)*2)
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, setting.GSetting.Data.WebChina, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("China", netHttPing, setting.GSetting.Data.WebChina, true, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, setting.GSetting.Data.WebForeignUnban, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA unban", netHttPing, setting.GSetting.Data.WebForeignUnban, true, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, setting.GSetting.Data.WebForeignBan, false, webCheckNum))
+	allResData.retDatas = append(allResData.retDatas, TestOneWeb("USA baned", netHttPing, setting.GSetting.Data.WebForeignBan, true, webCheckNum))
+	for _, url := range setting.GSetting.Data.Websites {
 		allResData.retDatas = append(allResData.retDatas, TestOneWeb(url, netHttPing, url, false, webCheckNum))
 		allResData.retDatas = append(allResData.retDatas, TestOneWeb(url, netHttPing, url, true, webCheckNum))
 	}

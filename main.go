@@ -1,7 +1,12 @@
 package main
 
+import (
+	"net_detect/logic"
+	"net_detect/net"
+)
+
 func main() {
-	h := NetHttping{}
+	h := net.NetHttping{}
 	h.Init()
-	StartMenu(&h)
+	logic.StartMenu(&h)
 }

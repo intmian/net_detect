@@ -1,4 +1,4 @@
-package main
+package setting
 
 import "net_detect/misc"
 
@@ -27,4 +27,4 @@ func NewSetting() *Setting {
 	}
 }
 
-var gSetting = *NewSetting()
+var GSetting = *NewSetting()
