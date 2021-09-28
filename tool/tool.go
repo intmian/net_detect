@@ -10,4 +10,3 @@ func InputStr(len int) string {
 	}
 	return re
 }
-

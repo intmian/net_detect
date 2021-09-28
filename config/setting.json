@@ -1,19 +1,19 @@
 {
-    "proxy" : "127.0.0.1:7890",
-    "web_check_num" : 5,
-    "max_parallel" : 5,
-    "web_china" : "https://www.baidu.com",
-    "web_foreign_unban" : "https://www.intmian.com",
-    "web_foreign_ban" : "https://www.google.com",
-    "websites": [
-        "https://www.baidu.com",
-        "https://www.intmian.com",
-        "https://github.com",
-        "https://www.youku.com",
-        "https://store.steampowered.com",
-        "https://www.google.com",
-        "https://www.youtube.com"
-    ],
-    "http_time_out_second" : 5,
-    "http_request_rand_time_out_millisecond" : 3
+  "proxy": "127.0.0.1:7890",
+  "web_check_num": 5,
+  "max_parallel": 5,
+  "web_china": "https://www.baidu.com",
+  "web_foreign_unban": "https://www.intmian.com",
+  "web_foreign_ban": "https://www.google.com",
+  "websites": [
+    "https://www.baidu.com",
+    "https://www.intmian.com",
+    "https://github.com",
+    "https://www.youku.com",
+    "https://store.steampowered.com",
+    "https://www.google.com",
+    "https://www.youtube.com"
+  ],
+  "http_time_out_second": 5,
+  "http_request_rand_time_out_millisecond": 3
 }

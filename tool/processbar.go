@@ -35,8 +35,8 @@ func (s *ProcessBarOneSign) End() {
 }
 
 type GoProcessBar struct {
-	p   ProcessBarOneSign
-	end chan int
+	p    ProcessBarOneSign
+	end  chan int
 	exit chan int
 }
 
@@ -65,4 +65,3 @@ func (b *GoProcessBar) Stop() {
 	b.end <- 1
 	<-b.exit
 }
-

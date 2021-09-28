@@ -10,8 +10,8 @@ type SettingJson struct {
 	WebChina                          string   `json:"web_china"`
 	WebForeignUnban                   string   `json:"web_foreign_unban"`
 	WebForeignBan                     string   `json:"web_foreign_ban"`
-	HttpTimeOutSecond                 int      `json:"http_time_out_second"` // http client 设置的timeout
-	HttpRequestRandTimeOutMillisecond int      `json:"http_request_rand_time_out_millisecond"`  // http client 发送请求的随机延迟
+	HttpTimeOutSecond                 int      `json:"http_time_out_second"`                   // http client 设置的timeout
+	HttpRequestRandTimeOutMillisecond int      `json:"http_request_rand_time_out_millisecond"` // http client 发送请求的随机延迟
 }
 
 type Setting struct {

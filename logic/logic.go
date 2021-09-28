@@ -39,7 +39,7 @@ func StartMenu(netHttPing *net.NetHttping) {
 		},
 		SubMenu: noSub,
 	}
-	rootSubMenu := []*tool.SingleMenu{&changeSetting, &normalDetect}
+	rootSubMenu := []*tool.SingleMenu{&normalDetect, &changeSetting}
 	root := tool.SingleMenu{
 		Name:    "根节点",
 		F:       nil,
