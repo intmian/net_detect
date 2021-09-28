@@ -51,7 +51,7 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	if nolost == 0 {
 		s += "完全丢失"
 	} else {
-		s += fmt.Sprintf("%3dms\t%d%%到达", sumTime/nolost, (nolost*10000)/(r.num*100))
+		s += fmt.Sprintf("%4dms\t%d%%到达", sumTime/nolost, (nolost*10000)/(r.num*100))
 	}
 	s += "\n"
 	print(s)

@@ -1,75 +1,11 @@
-package main
+package tool
 
 import (
 	"fmt"
 	"os"
 	"os/exec"
-	"time"
+	"strconv"
 )
-
-type ProcessBarOneSign struct {
-	status     int
-	signs      []string
-	firstPaint bool
-}
-
-func (s *ProcessBarOneSign) Init() {
-	s.status = 0
-	s.firstPaint = true
-	s.signs = []string{"↑", "→", "↓", "←"}
-}
-
-func (s *ProcessBarOneSign) Next() {
-	if !s.firstPaint {
-		print("\b")
-	} else {
-		s.firstPaint = false
-	}
-	print(s.signs[s.status])
-	s.status++
-	s.status = s.status % len(s.signs)
-}
-
-func (s *ProcessBarOneSign) End() {
-	if s.firstPaint {
-		return
-	}
-	print("\b")
-	s.status = 0
-	s.firstPaint = true
-}
-
-type GoProcessBar struct {
-	p    ProcessBarOneSign
-	end  chan int
-	exit chan int
-}
-
-func (b *GoProcessBar) Init() {
-	b.p.Init()
-	b.end = make(chan int, 0)
-	b.exit = make(chan int, 0)
-}
-
-func (b *GoProcessBar) Run() {
-	go func() {
-		for {
-			select {
-			case <-b.end:
-				b.p.End()
-				b.exit <- 1
-				return
-			case <-time.After(300 * time.Millisecond):
-				b.p.Next()
-			}
-		}
-	}()
-}
-
-func (b *GoProcessBar) Stop() {
-	b.end <- 1
-	<-b.exit
-}
 
 type SingleMenu struct {
 	Name    string // 项目名
@@ -139,21 +75,21 @@ func (m *CmdMenu) stop() {
 }
 
 func (m *CmdMenu) do() (exit bool) {
+	m.clear()
 	lenSub := len(m.now.SubMenu)
 	if lenSub == 0 {
 		// 跑到叶节点了，就执行这个的逻辑，停一下，再接着跑
+		println(m.now.Name)
 		m.now.F()
 		m.stop()
 		m.returnToLast()
 		return false
 	}
-
-	m.clear()
 	if m.now == nil {
 		return
 	}
 	for i, s := range m.now.SubMenu {
-		println(i, ":", s, "。")
+		println(strconv.Itoa(i) + ":" + s.Name)
 	}
 	CanReturn := false
 	if m.HisListIndex > 0 {
@@ -164,19 +100,20 @@ func (m *CmdMenu) do() (exit bool) {
 	backIndex := -1
 	exitIndex := -1
 
-	println("Home:", lenSub)
+	println(strconv.Itoa(lenSub) + ":Home")
 	homeIndex = lenSub
 	if CanReturn {
-		println("Back:", lenSub+1)
+		println(strconv.Itoa(lenSub+1) + ":Back")
 		backIndex = lenSub + 1
 	}
-	println("Exit:")
+
 	if CanReturn {
 		exitIndex = lenSub + 2
 	} else {
 		exitIndex = lenSub + 1
 	}
-	print("请选择下一步:__\b")
+	println(strconv.Itoa(exitIndex) + ":Exit")
+	print("请选择下一步:" + InputStr(1))
 	input := 0
 	_, err := fmt.Scanln(&input)
 	if err != nil {
@@ -194,7 +131,7 @@ func (m *CmdMenu) do() (exit bool) {
 		m.returnToLast()
 		return false
 	case input == exitIndex:
-		return  true
+		return true
 	default:
 		return false
 	}
