@@ -5,29 +5,28 @@ import (
 	"net/http"
 	"net/url"
 	"net_detect/setting"
+	"net_detect/tool"
 	"time"
 )
 
 type NetHttping struct {
-	maxChan     chan int
 	client      *http.Client
 	clientProxy *http.Client
+	funcQueue   tool.FuncQueueCaller
 }
 
 func (h *NetHttping) Init() {
-	h.maxChan = make(chan int, setting.GSetting.Data.MaxParallel)
+	h.funcQueue.Init(1000, setting.GSetting.Data.MaxParallel) // 队列暂时定1000个容量，一定要保证大于总连接数不然可能会卡住
 	h.clientProxy = buildHTTPClient(true)
 	h.client = buildHTTPClient(false)
 }
 
 func (h *NetHttping) Httping(url string, useProxy bool, result chan<- int) {
-	go func() { // 为了避免阻塞Httping，所以在此处起一个
-		h.maxChan <- 1 // 用channel做并发控制
-		randT := rand.Uint64() % uint64(setting.GSetting.Data.HttpRequestRandTimeOutMillisecond) // 避免阻塞做一个随机延迟
+	h.funcQueue.PushFunc(func() {
+		randT := rand.Uint64() % uint64(setting.GSetting.Data.HttpRequestRandTimeOutMillisecond) // 避免阻塞做一个随机延迟，这个可能会在日志里面导致顺序发生变化，但是不会有额外的影响
 		time.Sleep(time.Millisecond * time.Duration(randT))
 		result <- h.httping(url, useProxy)
-		<-h.maxChan
-	}()
+	})
 }
 
 func (h *NetHttping) httping(url string, useProxy bool) int {
