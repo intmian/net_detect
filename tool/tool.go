@@ -39,4 +39,3 @@ func ClearIOBuffer() {
 	myReader := bufio.NewReader(nil)
 	myReader.Reset(os.Stdin)
 }
-

@@ -24,14 +24,14 @@ func showSetting() {
 	//	return
 	//}
 	//print(string(bytes))
-	println("代理地址:",setting.GSetting.Data.Proxy)
-	println("单网站检测次数:",setting.GSetting.Data.WebCheckNum)
-	println("同时并行请求:",setting.GSetting.Data.MaxParallel)
-	println("国内网址:",setting.GSetting.Data.WebChina)
-	println("国外未ban网址:",setting.GSetting.Data.WebForeignUnban)
-	println("国外已ban网址:",setting.GSetting.Data.WebForeignBan)
+	println("代理地址:", setting.GSetting.Data.Proxy)
+	println("单网站检测次数:", setting.GSetting.Data.WebCheckNum)
+	println("同时并行请求:", setting.GSetting.Data.MaxParallel)
+	println("国内网址:", setting.GSetting.Data.WebChina)
+	println("国外未ban网址:", setting.GSetting.Data.WebForeignUnban)
+	println("国外已ban网址:", setting.GSetting.Data.WebForeignBan)
 	println("自定义网址:")
-	for _,s := range setting.GSetting.Data.Websites {
+	for _, s := range setting.GSetting.Data.Websites {
 		println("  " + s)
 	}
 }

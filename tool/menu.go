@@ -80,7 +80,7 @@ func (m *CmdMenu) do() (exit bool) {
 		return
 	}
 	for i, s := range m.now.SubMenu {
-		println(strconv.Itoa(i + 1) + ":" + s.Name)
+		println(strconv.Itoa(i+1) + ":" + s.Name)
 	}
 	CanReturn := false
 	if m.HisListIndex > 0 {
@@ -112,7 +112,7 @@ func (m *CmdMenu) do() (exit bool) {
 	switch {
 	case inputIndex < 0:
 		return false
-	case inputIndex < lenSub + 1:
+	case inputIndex < lenSub+1:
 		m.gotoSub(inputIndex - 1)
 		return false
 	case inputIndex == homeIndex:
