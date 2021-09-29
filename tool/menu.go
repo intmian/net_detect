@@ -86,23 +86,23 @@ func (m *CmdMenu) do() (exit bool) {
 	if m.HisListIndex > 0 {
 		CanReturn = true
 	}
-
+	nowIndex := lenSub + 1
 	homeIndex := -1
 	backIndex := -1
 	exitIndex := -1
 
-	homeIndex = lenSub + 1
-	println(strconv.Itoa(homeIndex) + ":Home")
+	if m.now != m.root {
+		homeIndex = nowIndex
+		nowIndex += 1
+		println(strconv.Itoa(homeIndex) + ":Home")
+	}
 	if CanReturn {
-		backIndex = lenSub + 2
+		backIndex = nowIndex
+		nowIndex += 1
 		println(strconv.Itoa(backIndex) + ":Back")
 	}
+	exitIndex = nowIndex
 
-	if CanReturn {
-		exitIndex = lenSub + 3
-	} else {
-		exitIndex = lenSub + 2
-	}
 	println(strconv.Itoa(exitIndex) + ":Exit")
 	inputIndex := 0
 	err := Input("请输入下一步", 2, &inputIndex)
