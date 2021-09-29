@@ -22,7 +22,7 @@ func (h *NetHttping) Init() {
 
 func (h *NetHttping) Httping(url string, useProxy bool, result chan<- int) {
 	go func() { // 为了避免阻塞Httping，所以在此处起一个
-		h.maxChan <- 1                                                                           // 用channel做并发控制
+		h.maxChan <- 1 // 用channel做并发控制
 		randT := rand.Uint64() % uint64(setting.GSetting.Data.HttpRequestRandTimeOutMillisecond) // 避免阻塞做一个随机延迟
 		time.Sleep(time.Millisecond * time.Duration(randT))
 		result <- h.httping(url, useProxy)
@@ -33,6 +33,7 @@ func (h *NetHttping) Httping(url string, useProxy bool, result chan<- int) {
 func (h *NetHttping) httping(url string, useProxy bool) int {
 	req, _ := http.NewRequest("GET", url, nil)
 	var r *http.Response
+	//println(url, useProxy, "发起")
 	start := time.Now() // 获取当前时间
 	if useProxy {
 		r, _ = h.clientProxy.Do(req)
@@ -40,6 +41,7 @@ func (h *NetHttping) httping(url string, useProxy bool) int {
 		r, _ = h.client.Do(req)
 	}
 	elapsed := time.Since(start)
+	//println(url, useProxy, elapsed.Milliseconds())
 	if r == nil {
 		return -1
 	}
