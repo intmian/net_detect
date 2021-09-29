@@ -36,7 +36,7 @@ func showSetting() {
 	}
 }
 
-func StartMenu(netHttPing *net.NetHttping) {
+func StartNetMenu(netHttPing *net.NetHttping) {
 	noSub := make([]*tool.SingleMenu, 0)
 	changeProxy := tool.SingleMenu{
 		Name:    "更改端口",

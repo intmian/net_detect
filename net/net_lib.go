@@ -21,6 +21,10 @@ func (h *NetHttping) Init() {
 	h.client = buildHTTPClient(false)
 }
 
+func (h *NetHttping) Finalize() {
+	h.funcQueue.Exit()
+}
+
 func (h *NetHttping) Httping(url string, useProxy bool, result chan<- int) {
 	h.funcQueue.PushFunc(func() {
 		randT := rand.Uint64() % uint64(setting.GSetting.Data.HttpRequestRandTimeOutMillisecond) // 避免阻塞做一个随机延迟，这个可能会在日志里面导致顺序发生变化，但是不会有额外的影响

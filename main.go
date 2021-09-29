@@ -8,5 +8,6 @@ import (
 func main() {
 	h := net.NetHttping{}
 	h.Init()
-	logic.StartMenu(&h)
+	logic.StartNetMenu(&h)
+	h.Finalize()
 }
