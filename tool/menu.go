@@ -1,7 +1,6 @@
 package tool
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"strconv"
@@ -66,15 +65,6 @@ func (m *CmdMenu) clear() {
 	}
 }
 
-func (m *CmdMenu) stop() {
-	cmd := exec.Command("cmd.exe", "/c", "pause")
-	cmd.Stdout = os.Stdout
-	err := cmd.Run()
-	if err != nil {
-		print("clear fail")
-	}
-}
-
 func (m *CmdMenu) do() (exit bool) {
 	m.clear()
 	lenSub := len(m.now.SubMenu)
@@ -82,7 +72,7 @@ func (m *CmdMenu) do() (exit bool) {
 		// 跑到叶节点了，就执行这个的逻辑，停一下，再接着跑
 		println(m.now.Name)
 		m.now.F()
-		m.stop()
+		Stop()
 		m.returnToLast()
 		return false
 	}
@@ -90,7 +80,7 @@ func (m *CmdMenu) do() (exit bool) {
 		return
 	}
 	for i, s := range m.now.SubMenu {
-		println(strconv.Itoa(i) + ":" + s.Name)
+		println(strconv.Itoa(i + 1) + ":" + s.Name)
 	}
 	CanReturn := false
 	if m.HisListIndex > 0 {
@@ -101,37 +91,37 @@ func (m *CmdMenu) do() (exit bool) {
 	backIndex := -1
 	exitIndex := -1
 
-	println(strconv.Itoa(lenSub) + ":Home")
-	homeIndex = lenSub
+	homeIndex = lenSub + 1
+	println(strconv.Itoa(homeIndex) + ":Home")
 	if CanReturn {
 		println(strconv.Itoa(lenSub+1) + ":Back")
-		backIndex = lenSub + 1
+		backIndex = lenSub + 2
 	}
 
 	if CanReturn {
-		exitIndex = lenSub + 2
+		exitIndex = lenSub + 3
 	} else {
-		exitIndex = lenSub + 1
+		exitIndex = lenSub + 2
 	}
 	println(strconv.Itoa(exitIndex) + ":Exit")
-	print("请选择下一步:" + InputStr(1))
-	input := 0
-	_, err := fmt.Scanln(&input)
+	inputIndex := 0
+	err := Input("请输入下一步", 2, &inputIndex)
 	if err != nil {
+		return false
 	}
 	switch {
-	case input < 0:
+	case inputIndex < 0:
 		return false
-	case input < lenSub:
-		m.gotoSub(input)
+	case inputIndex < lenSub + 1:
+		m.gotoSub(inputIndex - 1)
 		return false
-	case input == homeIndex:
+	case inputIndex == homeIndex:
 		m.gotoRoot()
 		return false
-	case input == backIndex:
+	case inputIndex == backIndex:
 		m.returnToLast()
 		return false
-	case input == exitIndex:
+	case inputIndex == exitIndex:
 		return true
 	default:
 		return false
