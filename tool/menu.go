@@ -36,6 +36,7 @@ func (m *CmdMenu) returnToLast() {
 		return
 	}
 	m.HisListIndex -= 1
+	m.now = m.HisList[m.HisListIndex]
 }
 
 func (m *CmdMenu) gotoSub(index int) bool {
