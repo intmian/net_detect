@@ -94,8 +94,8 @@ func (m *CmdMenu) do() (exit bool) {
 	homeIndex = lenSub + 1
 	println(strconv.Itoa(homeIndex) + ":Home")
 	if CanReturn {
-		println(strconv.Itoa(lenSub+1) + ":Back")
 		backIndex = lenSub + 2
+		println(strconv.Itoa(backIndex) + ":Back")
 	}
 
 	if CanReturn {
