@@ -10,7 +10,7 @@
 ## 使用方法
 
 下载文件
-https://github.com/intmian/net_detect/releases/download/v1.0/bin.rar
+https://github.com/intmian/net_detect/releases/download/v1.1.1/net-detect.rar
 
 ### 配置
 
