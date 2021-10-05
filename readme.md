@@ -10,8 +10,8 @@
 ## 使用方法
 
 下载文件
-https://github.com/intmian/net_detect/releases/download/v1.1.1/net-detect.rar
+https://github.com/intmian/net_detect/releases/download/v1.2/net-detect.rar
 
 ### 配置
 
-config里面setting.json自己改配置
+config下的setting.json文件中自己更改配置
