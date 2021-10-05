@@ -20,6 +20,7 @@ type Setting struct {
 }
 
 func NewSetting() *Setting {
+	// 当配置文件没有的时候会panic，这个需要提示
 	j := SettingJson{}
 	return &Setting{
 		Data:      &j,
