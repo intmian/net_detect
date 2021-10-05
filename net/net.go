@@ -42,31 +42,46 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	}
 	s := ""
 	s += r.name
-	for len(s) < 35 {
-		s += " "
-	}
-	if r.useProxy {
-		s += "(代理)\t"
-	} else {
-		s += "(直连)\t"
-	}
-	if nolost == 0 {
-		s += tool.Red("完全丢失")
+	l := len(s)
 
+	if r.useProxy {
+		s += tool.Purple(" H") // 会影响len的工作
 	} else {
-		avgTime := sumTime/nolost
+		s += "  "
+	}
+	l += 2
+
+	max := 12 // 适配自定义的情况
+	if len(r.name) > 12 {
+		max = 35
+	}
+
+	for l < max {
+		s += " "
+		l++
+	}
+	emoji := ""
+	if nolost == 0 {
+		s += tool.Red("       全部丢失")
+		emoji = tool.Red("⚪")
+	} else {
+		avgTime := sumTime / nolost
 		arriveRate := (nolost * 10000) / (r.num * 100)
-		str := fmt.Sprintf("%4dms\t%d%%到达",avgTime , arriveRate)
+		str := fmt.Sprintf("%4dms\t%d%%到达", avgTime, arriveRate)
 		switch {
 		case arriveRate < 100 || avgTime > 3000:
 			str = tool.Red(str)
+			emoji = tool.Red("⚪")
 		case avgTime > 200:
 			str = tool.Yellow(str)
+			emoji = tool.Yellow("⚪")
 		default:
 			str = tool.Green(str)
+			emoji = tool.Green("⚪")
 		}
 		s += str
 	}
+	s = emoji + s
 	s += "\n"
 	print(s)
 }
