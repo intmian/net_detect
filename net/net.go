@@ -3,6 +3,7 @@ package net
 import (
 	"fmt"
 	"net_detect/setting"
+	"net_detect/tool"
 )
 
 func TestOneWeb(printStr string, netHttPing *NetHttping, url string, useProxy bool, num int) RetData {
@@ -50,9 +51,21 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 		s += "(直连)\t"
 	}
 	if nolost == 0 {
-		s += "完全丢失"
+		s += tool.Red("完全丢失")
+
 	} else {
-		s += fmt.Sprintf("%4dms\t%d%%到达", sumTime/nolost, (nolost*10000)/(r.num*100))
+		avgTime := sumTime/nolost
+		arriveRate := (nolost * 10000) / (r.num * 100)
+		str := fmt.Sprintf("%4dms\t%d%%到达",avgTime , arriveRate)
+		switch {
+		case arriveRate < 100 || avgTime > 3000:
+			str = tool.Red(str)
+		case avgTime > 200:
+			str = tool.Yellow(str)
+		default:
+			str = tool.Green(str)
+		}
+		s += str
 	}
 	s += "\n"
 	print(s)

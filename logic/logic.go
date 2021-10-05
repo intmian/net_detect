@@ -9,7 +9,7 @@ import (
 
 func changeProxy() {
 	port := 7890
-	err := tool.Input("更改端口为", 4, &port)
+	err := tool.Input("更改端口为:", 4, &port)
 	if err != nil {
 		return
 	}

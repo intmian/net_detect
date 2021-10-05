@@ -105,7 +105,7 @@ func (m *CmdMenu) do() (exit bool) {
 
 	println(strconv.Itoa(exitIndex) + ":Exit")
 	inputIndex := 0
-	err := Input("请输入下一步", 2, &inputIndex)
+	err := Input("请输入下一步:", 2, &inputIndex)
 	if err != nil {
 		return false
 	}
