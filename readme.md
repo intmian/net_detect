@@ -10,13 +10,15 @@
 ## 使用方法
 
 下载文件
-https://github.com/intmian/net_detect/releases/download/v1.2/net-detect.rar
+https://github.com/intmian/net_detect/releases/download/v1.2.1/net-detect.rar
 
 打开exe文件，并按照菜单操作
 
-![image](https://user-images.githubusercontent.com/38103855/135992605-61b216ac-2ad3-4fc7-95c2-557e37ac668a.png)
+![image](https://user-images.githubusercontent.com/38103855/136067122-f7329ba1-e967-4906-9526-92397d28dad8.png)
 
 
 ### 配置
 
 config下的setting.json文件中自己更改配置
+
+在菜单中也可以对一些简单的配置进行修改与查询
