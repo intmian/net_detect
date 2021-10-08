@@ -63,7 +63,7 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	emoji := ""
 	if nolost == 0 {
 		s += tool.Red("       全部丢失")
-		emoji = tool.Red("〇")
+		emoji = tool.Red("●")
 	} else {
 		avgTime := sumTime / nolost
 		arriveRate := (nolost * 10000) / (r.num * 100)
@@ -72,13 +72,13 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 		switch {
 		case arriveRate < 100 || avgTime > 3000:
 			str = tool.Red(str)
-			emoji = tool.Red("〇")
+			emoji = tool.Red("●")
 		case avgTime > 200:
 			str = tool.Yellow(str)
-			emoji = tool.Yellow("〇")
+			emoji = tool.Yellow("●")
 		default:
 			str = tool.Green(str)
-			emoji = tool.Green("〇")
+			emoji = tool.Green("●")
 		}
 		s += str
 	}
