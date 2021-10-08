@@ -62,7 +62,7 @@ func (r *RetData) WaitAndPrint(sumChan chan<- int) {
 	}
 	emoji := ""
 	if nolost == 0 {
-		s += tool.Red("       全部丢失")
+		s += tool.Red(fmt.Sprintf("%11s", "全部丢失"))
 		emoji = tool.Red("●")
 	} else {
 		avgTime := sumTime / nolost
