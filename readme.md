@@ -16,7 +16,6 @@ https://github.com/intmian/net_detect/releases/download/v1.2.1/net-detect.rar
 
 ![image](https://user-images.githubusercontent.com/38103855/136067122-f7329ba1-e967-4906-9526-92397d28dad8.png)
 
-
 ### 配置
 
 config下的setting.json文件中自己更改配置
